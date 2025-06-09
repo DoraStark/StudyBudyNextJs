@@ -1,0 +1,71 @@
+body {
+  background-color: #f9fafb;
+  font-family: system-ui, -apple-system, "Inter", Inter, sans-serif;
+}
+
+.sidebar {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+}
+
+.sidebar a {
+  color: #ccc;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  display: block;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background-color: #5B21B6;
+  color: #fff;
+}
+
+.header {
+  background-color: #0f0f0f;
+  color: #5B21B6;
+}
+
+.btn btn-outline-light {
+
+background-color: #5B21B6;
+  border-color: #5B21B6;
+  color: white;
+  
+}
+
+.btn btn-outline-light:hover {
+
+background-color: #4C1A9B;
+  border-color: #4C1A9B;
+  color: white;
+  
+}
+
+.btn.btn-sm.btn-outline-primary {
+  background-color: #5B21B6;
+  border-color: #5B21B6;
+  color: white;
+}
+
+.btn.btn-sm.btn-outline-primary:hover {
+  background-color: #4C1A9B;
+  border-color: #4C1A9B;
+  color: white;
+}
+
+.btn.btn-outline-primary {
+  border-color: #5B21B6;
+  color: white;
+}
+
+.btn.btn-outline-primary:hover {
+  background-color: #4C1A9B;
+  border-color: #5B21B6;
+  color: white;
+}
+
+.form-control:focus {
+  border-color: #5B21B6;
+  box-shadow: 0 0 0 0.2rem rgba(91, 33, 182, 0.25);
+}
