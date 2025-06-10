@@ -16,7 +16,7 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
       <section className="mb-4">
         <h3>
           Sprachen{" "}
-          <a href="#" className="btn btn-sm btn-outline-primary">
+          <a href="#" className="btn btn-outline-primary">
             Edit
           </a>
         </h3>
@@ -28,7 +28,7 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
       <section className="mb-4">
         <h3>
           Themen{" "}
-          <a href="#" className="btn btn-sm btn-outline-primary">
+          <a href="#" className="btn btn-outline-primary">
             Edit
           </a>
         </h3>
@@ -54,7 +54,7 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
       <section>
         <h3>
           Lernpräferenzen{" "}
-          <a href="#" className="btn btn-sm btn-outline-primary">
+          <a href="#" className="btn btn-outline-primary">
             Edit
           </a>
         </h3>
@@ -71,7 +71,7 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
         </div>
 
         <div className="mt-4">
-          <button className="btn btn-sm btn-outline-primary">Profil speichern</button>
+          <button className="btn btn-outline-primary">Profil speichern</button>
         </div>
       </section>
     </div>

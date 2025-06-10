@@ -13,8 +13,8 @@ const Community: NextPage<Props> = ({ users }) => {
           <div className="p-3 m-2 bg-white shadow-sm border rounded">
             <h5>{user.name}</h5>
             <p>{user.skills}</p>
-            <a href="#" className="btn btn-sm btn-outline-primary">Details</a>
-            <a href="#" className="btn btn-sm btn-outline-primary ms-2">Nachricht</a>
+            <a href="#" className="btn btn-outline-primary">Details</a>
+            <a href="#" className="btn btn-outline-primary ms-2">Nachricht</a>
           </div>
         </div>
       ))}
