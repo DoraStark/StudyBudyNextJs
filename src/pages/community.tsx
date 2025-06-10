@@ -2,17 +2,21 @@
 import type { GetServerSideProps, NextPage } from "next";
 
 type Props = {
-  users: { name: string; skills: string }[];
+  users: {
+    name: string; skills: string; city: string;
+}[];
 };
 
 const Community: NextPage<Props> = ({ users }) => {
   return (
-    <div className="row">
+    <div className="flex">
       {users.map((user, i) => (
-        <div className="col-md-4" key={i}>
-          <div className="p-3 m-2 bg-white shadow-sm border rounded">
+        <div className="flex-md-4" key={i}>
+          <div className="p-4 m-2 bg-white shadow-sm border rounded">
             <h5>{user.name}</h5>
             <p>{user.skills}</p>
+            <p>{user.city}</p>
+
             <a href="#" className="btn btn-outline-primary">Details</a>
             <a href="#" className="btn btn-outline-primary ms-2">Nachricht</a>
           </div>
