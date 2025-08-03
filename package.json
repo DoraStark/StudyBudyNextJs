@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-"test": "jest"
+    "test": "jest"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
@@ -26,7 +26,9 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "jest": "^30.0.5",
+    "mongodb-memory-server": "^10.2.0",
     "node-mocks-http": "^1.17.2",
+    "supertest": "^7.1.4",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.0",
     "typescript": "^5"

@@ -36,7 +36,7 @@ async function seed() {
     }
   ]);
 
-  console.log("✅ Seed abgeschlossen!");
+  console.log(" Seed abgeschlossen!");
   await mongoose.disconnect();
 }
 
