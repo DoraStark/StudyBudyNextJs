@@ -26,10 +26,18 @@ const Community: NextPage<Props> = ({ users }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/community");
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const host = context.req.headers.host;
+  const protocol = host?.startsWith("localhost") ? "http" : "https";
+
+  const res = await fetch(`${protocol}://${host}/api/community`);
   const data = await res.json();
-  return { props: { users: data.users } };
+
+  return {
+    props: {
+         users: data.users
+    }
+  };
 };
 
 export default Community;
