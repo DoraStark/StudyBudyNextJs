@@ -1,10 +1,13 @@
-
 import type { GetServerSideProps, NextPage } from "next";
+import { connectToDatabase } from "@/lib/mongoose";
+import User from "@/models/User";
 
 type Props = {
   users: {
-    name: string; skills: string; city: string;
-}[];
+    name: string;
+    skills: string;
+    location: string;
+  }[];
 };
 
 const Community: NextPage<Props> = ({ users }) => {
@@ -15,7 +18,7 @@ const Community: NextPage<Props> = ({ users }) => {
           <div className="p-4 m-2 bg-white shadow-sm border rounded">
             <h5>{user.name}</h5>
             <p>{user.skills}</p>
-            <p>{user.city}</p>
+            <p>{user.location}</p>
 
             <a href="#" className="btn btn-outline-primary">Details</a>
             <a href="#" className="btn btn-outline-primary ms-2">Nachricht</a>
@@ -26,10 +29,15 @@ const Community: NextPage<Props> = ({ users }) => {
   );
 };
 
+
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/community");
-  const data = await res.json();
-  return { props: { users: data.users } };
+  await connectToDatabase();
+  const users = await User.find({}, "username teach location");
+  return {
+    props: {
+      users: JSON.parse(JSON.stringify(users)),
+    },
+  };
 };
 
 export default Community;

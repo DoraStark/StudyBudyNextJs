@@ -1,5 +1,7 @@
-
+// src/pages/profile.tsx
 import type { GetServerSideProps, NextPage } from "next";
+import { connectToDatabase } from "@/lib/mongoose";
+import User from "@/models/User";
 
 type Props = {
   languages: string[];
@@ -41,7 +43,7 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
           ))}
         </ul>
 
-        <p>
+        <p className="mt-3">
           <strong>Ich kann unterrichten:</strong>
         </p>
         <ul>
@@ -78,15 +80,23 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/profile");
-  const data = await res.json();
 
-  return {
-    props: {
-      ...data,
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async () => {
+  await connectToDatabase();
+  const user = await User.findOne({ username: "Alex" });
+
+  if (!user) {
+    return { notFound: true };
+  }
+
+return {
+  props: {
+    languages: JSON.parse(JSON.stringify(user.languages)),
+    learn: JSON.parse(JSON.stringify(user.learn)),
+    teach: JSON.parse(JSON.stringify(user.teach)),
+    preferences: JSON.parse(JSON.stringify(user.preferences)),
+  },
+};
 };
 
 export default Profile;
