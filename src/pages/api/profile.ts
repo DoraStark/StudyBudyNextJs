@@ -1,23 +1,21 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+import type { NextApiRequest, NextApiResponse } from "next";
+import { connectToDatabase } from "@/lib/mongoose";
+import User from "@/models/User";
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await connectToDatabase();
+
+  const user = await User.findOne({ username: "Alex" });
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
   res.status(200).json({
-    languages: ['🇩🇪 Deutsch', '🇬🇧 Englisch'],
-    learn: ['🌍 Geografie', '🔭 Astronomy'],
-    teach: ['➕ Mathe', '🎵 Musik'],
-    preferences: [
-      {
-        title: "Was ich erwarte?",
-        text: "Möchte gerne mehr über Klima und verschiedene Länder wissen und auch Saturn Bewegungen"
-      },
-      {
-        title: "Wie kann ich dir helfen?",
-        text: "Kann dir mit Mathe helfen, Geometrie und Algebra im Rahmen des Schulkurses und auch Musiktheorie"
-      },
-      {
-        title: "Was noch?",
-        text: "Ich wohne in Berlin (Prenzlauer Berg), habe Zeit mittwochs nachmittags, können uns treffen oder online – bin flexibel."
-      }
-    ]
+    languages: user.languages,
+    learn: user.learn,
+    teach: user.teach,
+    preferences: user.preferences,
   });
 }

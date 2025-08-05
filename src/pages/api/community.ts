@@ -1,14 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { connectToDatabase } from "@/lib/mongoose";
+import User from "@/models/User";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await connectToDatabase();
+
+  const users = await User.find({}, "username teach location");
+
   res.status(200).json({
-    users: [
-      { name: "Anna", skills: "🎵 Musik, ➕ Mathe" },
-      { name: "Mark", skills: "🎨 Kunst, ➕ Bio" },
-      { name: "Lara", skills: "🧮 Mathe, ➕ Musik" },
-      { name: "Erik", skills: "🎵 Musik, ➕ Mathe" },
-      { name: "Karina", skills: "🎨 Kunst, ➕ Bio" },
-      { name: "Louise", skills: "🧮 Mathe, ➕ Musik" }
-    ]
+    users: users.map((u) => ({
+      name: u.username,
+      skills: u.teach.join(", "),
+      location: u.location || "Berlin", // если location нет — Berlin
+    })),
   });
 }
