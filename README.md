@@ -1,40 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# StudyBuddy – Lab 04
 
-## Getting Started
+StudyBuddy ist eine Webanwendung, mit der Lernende ein persönliches Profil erstellen können, um passende Lernpartner zu finden. Die Anwendung erlaubt es, Lern- und Lehrthemen anzugeben, Profile anderer Nutzer zu sehen und Lernpartner zu finden.
 
-First, run the development server:
+# Projektbeschreibung & User Stories
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Ziel des Projekts
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Eine einfache, responsive Web-App mit folgenden Funktionen:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1.Benutzerprofil anzeigen
+2.Lern-/Lehrthemen verwalten
+3.Community-Bereich mit anderen Nutzern
+3.Einheitliches Layout mit Sidebar und Suche
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# User Stories
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+# Benutzerprofil
+1.Als Benutzer möchte ich mein Profil anzeigen lassen, mit Sprachen, Themen und Lernpräferenzen.
+2. Als Benutzer möchte ich sehen, welche Themen ich lernen und welche ich unterrichten kann.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Community
+1. Als Benutzer möchte ich eine Liste anderer Mitglieder sehen, um passende Lernpartner zu finden.
+2. Als Benutzer möchte ich mit anderen Benutzern in Kontakt treten (Buttons: "Details", "Nachricht").
 
-## Learn More
+# Layout
+1. Als Benutzer möchte ich eine feste Sidebar mit Navigation und ein Suchfeld im Header.
+2. Als Benutzer möchte ich ein leichtes und intuitives Design.
 
-To learn more about Next.js, take a look at the following resources:
+# Technik
+1. Als Entwickler möchte ich Express durch Next.js ersetzen.
+2. Als Entwickler möchte ich API-Routen nutzen und Server Side Rendering mit `getServerSideProps`.
+3.Als Entwickler möchte ich das Projekt in Docker betreiben können.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Technische Umsetzung
 
-## Deploy on Vercel
+1.Umstellung des Express/Handlebars-Projekts auf Next.js.
+2.Globale Layoutstruktur über `_app.tsx` und `Layout.tsx`.
+3.Bootstrap und eigene Styles via `import` eingebunden (Wahrscheinlich sp'ter zu tailwind).
+4.Zwei Hauptseiten (`/profile`, `/community`) als SSR-React-Komponenten mit echten API-Calls.
+5.Serverseitige Datenversorgung über `getServerSideProps`.
+6.Docker-Support mit multistage `Dockerfile`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Technische Probleme & Lösungen
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+# Problem 1: `next build` schlägt fehl wegen `<link>`
+Ursache war `<link rel="stylesheet">` in Komponenten (verboten in Next.js)
+Unsere Lösung ist Alle Styles via `import` in `_app.tsx` geladen
+
+# Problem 2: `bootstrap.min.css` nicht gefunden
+Die Ursache war Bootstrap war nicht im Projekt installiert
+Unsere Lösung `npm install bootstrap` + korrekter Import in `_app.tsx`
+
+# Problem 3: Docker build schlägt fehl (RUN npm run build)
+Ursache: ESLint-Fehler (nicht verwendete Head-Importe in profile.tsx und community.tsx)
+Lösung: Nicht verwendete Head-Importe entfernt, ESLint-Fehler behoben
+
+# Problem 4: Fehlende Bootstrap-Abhängigkeit im Container
+Ursache: bootstrap/dist/css/bootstrap.min.css nicht installiert , Module not found
+Lösung: Bootstrap mit npm install bootstrap installiert und Dockerfile neu gebaut
+
+# Problem 5: falscher Docker-Kontext oder Verzeichnis
+Ursache: Dockerfile wurde im falschen Verzeichnis oder mit falschem Kontext ausgeführt
+Lösung: Verzeichnisstruktur überprüft, Dockerfile in Projektroot verschoben und docker build -t study-buddy . erneut ausgeführt
+
+Als Ergebnis
+Docker Image erfolgreich gebaut (study-buddy:latest)
+docker run hello-world getestet, Docker funktioniert
+Image ist jetzt bereit für Deployment oder Weiterentwicklung.
+
+

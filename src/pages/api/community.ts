@@ -8,10 +8,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const users = await User.find({}, "username teach location");
 
   res.status(200).json({
+
     users: users.map((u) => ({
       name: u.username,
       skills: u.teach.join(", "),
-      location: u.location || "Berlin", // если location нет — Berlin
+      location: u.location || "Berlin", 
     })),
+
   });
 }

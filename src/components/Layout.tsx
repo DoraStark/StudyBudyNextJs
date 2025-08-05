@@ -10,27 +10,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="header py-3 bg-dark text-white">
-        <div className="container">
-          <div className="row g-0 align-items-center">
-            <div className="col-md-2 ps-4">
-              <h1 className="h4 m-0">Study Buddy</h1>
-            </div>
-            <div className="col-md-10">
-              <form className="d-flex" style={{ maxWidth: "750px" }}>
-                <input
-                  className="form-control me-2 flex-grow-1"
-                  type="search"
-                  placeholder="Suche..."
-                />
-                <button className="btn btn-outline-primary" type="submit">
-                  Suchen
-                </button>
-              </form>
-            </div>
-          </div>
+      
+      <header className="bg-dark text-white py-3 px-4">
+        <div className="d-flex justify-content-between align-items-center">
+          <h1 className="h4 m-0">Study Buddy</h1>
+          <form className="d-flex" style={{ maxWidth: "750px", width: "100%" }}>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Suche..."
+            />
+            <button className="btn btn-outline-primary" type="submit">
+              Suchen
+            </button>
+          </form>
         </div>
-      </div>
+      </header>
+            
 
       <div className="container-fluid">
         <div className="row">

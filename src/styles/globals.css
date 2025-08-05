@@ -42,13 +42,13 @@ background-color: #4C1A9B;
   
 }
 
-.btn.btn-sm.btn-outline-primary {
+.btn.btn-outline-primary {
   background-color: #5B21B6;
   border-color: #5B21B6;
   color: white;
 }
 
-.btn.btn-sm.btn-outline-primary:hover {
+.btn.btn-outline-primary:hover {
   background-color: #4C1A9B;
   border-color: #4C1A9B;
   color: white;
