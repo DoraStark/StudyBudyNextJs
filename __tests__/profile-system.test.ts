@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { createMocks } from 'node-mocks-http';
 import handler from '../src/pages/api/profile'; 
-const User = require('../src/models/User');
+import User from '../src/models/User';
 
 
 let mongo: MongoMemoryServer;
