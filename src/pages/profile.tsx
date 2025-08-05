@@ -78,15 +78,19 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch("http://localhost:3000/api/profile");
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const host = context.req.headers.host;
+  const protocol = host?.startsWith("localhost") ? "http" : "https";
+
+  const res = await fetch(`${protocol}://${host}/api/profile`);
   const data = await res.json();
 
   return {
     props: {
-      ...data,
-    },
+      ...data
+    }
   };
 };
+
 
 export default Profile;
