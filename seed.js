@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   name: String,
   city: String,
   roles: [String],
-  skills: [String]
+  skills: [String],
 });
 
 const User = mongoose.model("User", userSchema);
@@ -19,21 +19,21 @@ async function seed() {
     {
       name: "Basil Paner",
       city: "Berlin",
-      roles: ["learner"],
-      skills: ["Python", "Datenbanken"]
+      learn: ["Python", "Datenbanken"],
+      teach: ["Mathe", "Bio"],
     },
     {
       name: "Maria Svendsen",
       city: "Berlin",
       roles: ["teacher"],
-      skills: ["Chemie", "Erklären"]
+      skills: ["Chemie", "Erklären"],
     },
     {
       name: "Alex Beispiel",
       city: "Berlin",
       roles: ["learner", "teacher"],
-      skills: ["Python", "MongoDB", "Erklären"]
-    }
+      skills: ["Python", "MongoDB", "Erklären"],
+    },
   ]);
 
   console.log(" Seed abgeschlossen");

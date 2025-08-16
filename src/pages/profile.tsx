@@ -1,4 +1,3 @@
-
 import type { GetServerSideProps, NextPage } from "next";
 
 type Props = {
@@ -11,40 +10,45 @@ type Props = {
 const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Mein Profil</h2>
+      <h2 className="mb-4 text-white">Znatok M</h2>
 
       <section className="mb-4">
-        <h3>
+        <h3 className="text-white">
           Sprachen{" "}
-          <a href="#" className="btn btn-outline-primary">
+          <a href="#" className="btn btn-outline-light ms-2">
             Edit
           </a>
         </h3>
-        {languages.map((lang, i) => (
-          <p key={i}>{lang}</p>
-        ))}
+        <div className="text-white-50">
+          {languages.map((lang, i) => (
+            <p key={i} className="mb-1">
+              {lang}
+            </p>
+          ))}
+        </div>
       </section>
 
       <section className="mb-4">
-        <h3>
+        <h3 className="text-white">
           Themen{" "}
-          <a href="#" className="btn btn-outline-primary">
+          <a href="#" className="btn btn-outline-light ms-2">
             Edit
           </a>
         </h3>
-        <p>
+
+        <p className="text-white mb-1">
           <strong>Ich möchte lernen:</strong>
         </p>
-        <ul>
+        <ul className="text-white-50">
           {learn.map((item, i) => (
             <li key={`learn-${i}`}>{item}</li>
           ))}
         </ul>
 
-        <p>
+        <p className="text-white mb-1">
           <strong>Ich kann unterrichten:</strong>
         </p>
-        <ul>
+        <ul className="text-white-50">
           {teach.map((item, i) => (
             <li key={`teach-${i}`}>{item}</li>
           ))}
@@ -52,26 +56,30 @@ const Profile: NextPage<Props> = ({ languages, learn, teach, preferences }) => {
       </section>
 
       <section>
-        <h3>
+        <h3 className="text-white">
           Lernpräferenzen{" "}
-          <a href="#" className="btn btn-outline-primary">
+          <a href="#" className="btn btn-outline-light ms-2">
             Edit
           </a>
         </h3>
+
         <div className="row g-3">
-          {preferences.map((pref, i) => (
+          {preferences?.map((pref, i) => (
             <div className="col-md-4" key={i}>
-              <div className="p-3 bg-light border rounded">
+              {/* ВАЖНО: делаем тёмный текст на светлом фоне */}
+              <div className="p-3 bg-white text-dark border rounded shadow-sm">
                 <strong>{pref.title}</strong>
                 <br />
-                {pref.text}
+                <span>{pref.text}</span>
               </div>
             </div>
           ))}
         </div>
 
         <div className="mt-4">
-          <button className="btn btn-outline-primary">Profil speichern</button>
+          <button className="btn btn-outline-light ms-2">
+            Profil speichern
+          </button>
         </div>
       </section>
     </div>
@@ -85,12 +93,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${protocol}://${host}/api/profile`);
   const data = await res.json();
 
-  return {
-    props: {
-      ...data
-    }
-  };
+  return { props: { ...data } };
 };
-
 
 export default Profile;
