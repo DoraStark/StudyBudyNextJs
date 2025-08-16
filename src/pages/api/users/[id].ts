@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { USERS } from "./data"; // IMPORTANT: "./data" (same folder), not "../users/data"
+import { USERS } from "./data";
 
 type User = {
   id?: string;
@@ -15,24 +15,27 @@ type User = {
 
 const toArray = (v: unknown): string[] | undefined => {
   if (Array.isArray(v)) return v.map(String);
+  if (typeof v === "string") return v.split(",").map(s => s.trim()).filter(Boolean);
   return undefined;
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const users = USERS as unknown as User[];
   const { id } = req.query as { id: string };
-  const idx = (USERS as any[]).findIndex(
-    (u: any) => String(u._id ?? u.id) === String(id)
-  );
+
+  const idx = users.findIndex(u => String(u._id ?? u.id) === String(id));
 
   if (req.method === "GET") {
     if (idx === -1) return res.status(404).json({ error: "Not found" });
-    return res.status(200).json((USERS as any[])[idx]);
+    return res.status(200).json(users[idx]);
   }
 
   if (req.method === "PUT") {
     if (idx === -1) return res.status(404).json({ error: "Not found" });
-    const cur = (USERS as any[])[idx] as User;
-    const b = req.body ?? {};
+
+    const cur = users[idx];
+    const b = (req.body ?? {}) as Partial<User>;
+
     const updated: User = {
       ...cur,
       name: typeof b.name === "string" ? b.name : cur.name,
@@ -43,7 +46,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       teach: toArray(b.teach) ?? cur.teach,
       learn: toArray(b.learn) ?? cur.learn,
     };
-    (USERS as any[])[idx] = updated;
+
+    users[idx] = updated;
     return res.status(200).json(updated);
   }
 
