@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const ACCENT = "#5B21B6";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
